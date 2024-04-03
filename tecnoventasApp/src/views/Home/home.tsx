@@ -69,13 +69,20 @@ export const HomeScreen = () => {
             </Text>
           </View>
         </ScrollView>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("LoginScreen")}>
+          <Text style={styles.text}>Iniciar Sesion</Text>
+
+        </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("RegistroScreen")}
-        >
+          onPress={() => navigation.navigate("RegistroScreen")}>
           <Text style={styles.text}>Registrarse</Text>
+
         </TouchableOpacity>
+
       </View>
     </ImageBackground>
   );

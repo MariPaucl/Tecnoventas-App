@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
-
-const RegistroStyles = StyleSheet.create({
+const loginStyles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'black',
@@ -8,12 +7,12 @@ const RegistroStyles = StyleSheet.create({
     imageBackground: {
         width: '100%',
         height: '100%',
-        opacity: 0.5,
-        bottom: '20%',
+        opacity: 0.7,
+        bottom: '5%',
     },
     form: {
         width: '100%',
-        height: '65%',
+        height: '40%',
         backgroundColor: 'white',
         position: 'absolute',
         bottom: 0,
@@ -29,30 +28,27 @@ const RegistroStyles = StyleSheet.create({
         borderBottomWidth: 2,
         borderBottomColor: '#5B1753',
     },
-    formIcon: {
-        width: 25,
-        height: 25,
-        marginTop: 5,
-    },
-    formInput: {
+    formRegister: {
         flexDirection: 'row',
-        marginTop: 25,
+        justifyContent: 'center',
+        marginTop: 30,
     },
-    formTextInput: {
-        flex: 1,
+    formRegisterText: {
+        fontStyle: 'italic',
+        color: 'purple',
         borderBottomWidth: 1,
-        borderBottomColor: '#AAAAAA',
-        marginLeft: 15,
+        borderBottomColor: 'purple',
+        fontWeight: 'bold',
+        marginLeft: 10,
     },
     logoContainer: {
         position: 'absolute',
         alignSelf: 'center',
-        top: '5%',
-        alignItems: 'center',
+        top: '15%',
     },
     logoImage: {
-        width: 150,
-        height: 150,
+        width: 250,
+        height: 250,
     },
     logoText: {
         color: 'white',
@@ -61,19 +57,5 @@ const RegistroStyles = StyleSheet.create({
         marginTop: 10,
         fontWeight: 'bold',
     },
-    link: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginTop: 30,
-    },
-    linkText: {
-        fontStyle: 'italic',
-        color: '#5B1753',
-        borderBottomWidth: 1,
-        borderBottomColor: '#5B1753',
-        fontWeight: 'bold',
-        marginLeft: 10,
-    },
-})
-
-export default RegistroStyles;
+});
+export default loginStyles;

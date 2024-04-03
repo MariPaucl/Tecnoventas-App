@@ -60,7 +60,7 @@ const HomeStyles = StyleSheet.create({
     backgroundColor: "#DDDDDD",
     padding: 10,
     borderRadius: 5,
-    marginBottom: 50,
+    marginBottom: 20,
   },
   text: {
     textAlign: "center",
