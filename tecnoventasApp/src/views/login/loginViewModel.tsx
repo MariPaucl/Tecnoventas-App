@@ -4,11 +4,6 @@ export const useViewModel = () => {
     const [values, setValues] = useState({
         Tipo_Documento: '',
         Numero_Documento: '',
-        password: '',
-        apeCliente: '',
-        fechaNac: '',
-        telefono: '',
-        correo: '',
         passCliente: '',
     });
 
