@@ -21,7 +21,7 @@ export const LoginScreen = () => {
         } else {
             const success = await login();
             if (success) {
-                // Aquí puedes hacer algo en caso de inicio de sesión exitoso
+                // Caso de inicio de sesión exitoso
             } else {
                 ToastAndroid.show('El Numero De Documento O la contraseña no coinciden.', ToastAndroid.SHORT);
             }
@@ -52,7 +52,7 @@ export const LoginScreen = () => {
                             style={{ width: 24, height: 24, marginRight: 8 }}
                         />
                         <Picker
-                            style={{ flex: 1 }} // Asegura que el picker ocupe todo el espacio restante
+                            style={{ flex: 1 }}
                             selectedValue={tipoDocumento}
                             onValueChange={(itemValue, itemIndex) => setTipoDocumento(itemValue)} >
 
@@ -89,9 +89,9 @@ export const LoginScreen = () => {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.formRegister}>
-                        <Text>ver</Text>
-                        <TouchableOpacity onPress={() => navigation.navigate('PerfilScreen')}>
-                            <Text style={styles.formRegisterText}>Perfil</Text>
+                        <Text>Ingresar</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('ProductosScreen')}>
+                            <Text style={styles.formRegisterText}>Productos</Text>
                         </TouchableOpacity>
                     </View>
                 </ScrollView>

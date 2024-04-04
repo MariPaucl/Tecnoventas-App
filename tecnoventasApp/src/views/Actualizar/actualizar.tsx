@@ -81,7 +81,7 @@ export const ActualizarScreen = () => {
             />
 
             <View style={{marginTop: 30}}>
-                <RoundedButton text='Guadar' onPress={handleUpdate}/>
+                <RoundedButton text='Guardar' onPress={handleUpdate}/>
             </View>
             </ScrollView>
             </View>

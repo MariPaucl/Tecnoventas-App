@@ -27,6 +27,7 @@ export const CustomTextInput = ({
             />
             <TextInput style={styles.formTextInput}
             placeholder={placeholder}
+            placeholderTextColor="#AFAFAF"
             keyboardType={keyboardType}
             value={value}
             onChangeText={text => onChangeText(property, text)}
@@ -48,8 +49,9 @@ const styles = StyleSheet.create({
     },
     formTextInput: {
         flex: 1,
-        borderBottomWidth: 1,
-        borderBottomColor: '#AAAAAA',
+        borderBottomWidth: 2,
+        borderBottomColor: '#5b1753',
         marginLeft: 15,
+        color: 'white',
     }
 })

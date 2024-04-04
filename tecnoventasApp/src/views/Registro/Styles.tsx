@@ -11,23 +11,21 @@ const RegistroStyles = StyleSheet.create({
         opacity: 0.5,
         bottom: '20%',
     },
-    form: {
+    form:{
         width: '100%',
         height: '65%',
-        backgroundColor: 'white',
+        backgroundColor: 'rgba(255, 254, 254, 0.4)',
         position: 'absolute',
         bottom: 0,
         borderTopLeftRadius: 40,
         borderTopRightRadius: 40,
         padding: 30,
     },
-    formText: {
+    formText:{
+        color: '#5b1753',
         fontWeight: 'bold',
-        fontSize: 20,
-        textAlign: 'left',
-        paddingBottom: 10,
-        borderBottomWidth: 2,
-        borderBottomColor: '#5B1753',
+        fontSize: 30,
+        textAlign: 'center',
     },
     formIcon: {
         width: 25,

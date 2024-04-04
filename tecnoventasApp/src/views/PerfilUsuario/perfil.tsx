@@ -7,10 +7,10 @@ import DocumentoIcon from '../../../assets/documento.png';
 import DocumentoIcon2 from '../../../assets/documentont.png';
 import TelefonoIcon from '../../../assets/telefono.png';
 import FechaIcon from '../../../assets/fecha.png';
-import CorreoIcon from '../../../assets/correo.png'; // Agregado el icono para el correo
+import CorreoIcon from '../../../assets/correo.png';
 
 const PerfilScreen = ({ navigation }) => { // Pasa navigation como una propiedad
-  const [imagenPerfil, setImagenPerfil] = useState(require('../../../assets/usuario.png')); // Importa la imagen local
+  const [imagenPerfil, setImagenPerfil] = useState(require('../../../assets/usuario.png'));
   const [tipoId, setTipoId] = useState('CC');
   const [numId, setNumId] = useState('1023456327');
   const [telefono, setTelefono] = useState('3124536788');
@@ -19,7 +19,7 @@ const PerfilScreen = ({ navigation }) => { // Pasa navigation como una propiedad
   const [correo, setCorreo] = useState('sara33@gmail.com');
 
   const onPressEditarPerfil = () => {
-    console.log('Editar perfil');
+    navigation.navigate("ActualizarScreen");
   };
 
   const onPressEliminarCuenta = () => {
@@ -99,12 +99,12 @@ const styles = StyleSheet.create({
   },
   portada: {
     width: '60%',
-    height: 280, // Altura de la portada
+    height: 280,
     overflow: 'hidden',
-    borderBottomLeftRadius: 50, // Bordes redondeados en la esquina inferior izquierda
-    borderBottomRightRadius: 50, // Bordes redondeados en la esquina inferior derecha
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
     position: 'absolute',
-    top: 0, // Posición en la parte superior de la pantalla
+    top: 0,
     zIndex: 0,
   },
   imagenPortada: {
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   },
   header: {
     position: 'absolute',
-    top: 100, // Ajusta según la altura de la portada
+    top: 100,
     alignItems: 'center',
     zIndex: 1,
   },
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    marginTop: 120, // Ajusta el espacio entre la foto de perfil y la portada
+    marginTop: 120,
   },
   nombreUsuario: {
     fontSize: 20,
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   },
   fila: {
     flexDirection: 'row',
-    justifyContent: 'flex-start', // Alinea los elementos a la izquierda
+    justifyContent: 'flex-start',
     alignItems: 'center',
     paddingVertical: 10,
   },
@@ -160,14 +160,14 @@ const styles = StyleSheet.create({
     color: '#000', // Color negro
     fontSize: 16,
     fontWeight: 'bold',
-    marginRight: 5, // Ajusta el espacio entre el título y el texto
+    marginRight: 5,
   },
   celdaTituloTipoId: {
     color: '#000', // Color negro
     fontSize: 16,
     fontWeight: 'bold',
     color: '#757575', // Color más oscuro
-    marginRight: 5, // Ajusta el espacio entre el título y el texto
+    marginRight: 5,
   },
   celda: {
     color: '#000', // Color negro
@@ -203,11 +203,11 @@ const styles = StyleSheet.create({
   icono: {
     width: 20,
     height: 20,
-    marginRight: 10, // Ajusta el espaciado entre el icono y el texto
+    marginRight: 10,
   },
   textoIcono: {
-    flexDirection: 'row', // Alinear texto e icono horizontalmente
-    alignItems: 'center', // Alinear texto e icono verticalmente
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   text: {
     textAlign: "center",

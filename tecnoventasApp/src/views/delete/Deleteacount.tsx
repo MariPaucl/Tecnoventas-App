@@ -18,8 +18,8 @@ const DeleteScreen = () => {
   const [email, setEmail] = useState("");
 
   const handleConfirm = () => {
-    // Aquí puedes implementar la lógica para confirmar la eliminación de la cuenta con el correo ingresado
-    // Por ahora, simplemente mostraremos un mensaje de confirmación
+    // Implementar la lógica para confirmar la eliminación de la cuenta con el correo ingresado
+    // Por ahora, simplemente se mostrara un mensaje de confirmación
     alert(`Cuenta eliminada para el correo: ${email}`);
   };
 

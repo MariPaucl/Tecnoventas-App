@@ -18,7 +18,7 @@ app.set('port', port);
 clienteRoutes(app);
 
 //ipconfig para saber ip
-server.listen(port, '192.168.100.115' || 'localhost', function() {
+server.listen(port, '' || 'localhost', function() {
     console.log('Aplicacion Tecnoventas ' + process.pid + ' inicio en el puerto ' + port);
 });
 

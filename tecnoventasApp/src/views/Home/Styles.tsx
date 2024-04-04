@@ -40,7 +40,7 @@ const HomeStyles = StyleSheet.create({
   },
   page: {
     height: 290,
-    width: screenWidth - 20, // Aquí utilizamos screenWidth
+    width: screenWidth - 20,
     flexDirection: "row",
     backgroundColor: "rgba(255, 255, 255, 0.3)",
     borderRadius: 8,
@@ -48,8 +48,10 @@ const HomeStyles = StyleSheet.create({
     alignItems: "center",
   },
   pageText: {
-    fontSize: 18,
+    fontSize: 16,
     flex: 1,
+    textAlign: "left",
+    marginRight: 10,
   },
   textContainer: {
     flexDirection: "row",
