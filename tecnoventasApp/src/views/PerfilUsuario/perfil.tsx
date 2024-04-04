@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, ImageBackground, Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { withNavigation } from '@react-navigation/compat'; // Importa withNavigation
 
 // Importa los iconos
 import DocumentoIcon from '../../../assets/documento.png';
@@ -8,7 +9,7 @@ import TelefonoIcon from '../../../assets/telefono.png';
 import FechaIcon from '../../../assets/fecha.png';
 import CorreoIcon from '../../../assets/correo.png'; // Agregado el icono para el correo
 
-const PerfilScreen = () => {
+const PerfilScreen = ({ navigation }) => { // Pasa navigation como una propiedad
   const [imagenPerfil, setImagenPerfil] = useState(require('../../../assets/usuario.png')); // Importa la imagen local
   const [tipoId, setTipoId] = useState('CC');
   const [numId, setNumId] = useState('1023456327');
@@ -22,7 +23,7 @@ const PerfilScreen = () => {
   };
 
   const onPressEliminarCuenta = () => {
-    console.log('Eliminar cuenta');
+    navigation.navigate("DeleteScreen"); 
   };
 
   return (
@@ -78,7 +79,7 @@ const PerfilScreen = () => {
           <Text style={styles.textoBoton}>Editar Datos</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.boton, styles.botonEliminarCuenta]} onPress={onPressEliminarCuenta}>
-          <Text style={styles.textoBoton}>Eliminar Cuenta</Text>
+          <Text style={styles.text}>Eliminar cuenta</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
@@ -190,7 +191,7 @@ const styles = StyleSheet.create({
     left: 10,
   },
   botonEliminarCuenta: {
-    backgroundColor: '#2e0256', 
+    backgroundColor: '#7a2fbc', 
     bottom: 10,
     right: 10,
   },
@@ -207,6 +208,10 @@ const styles = StyleSheet.create({
   textoIcono: {
     flexDirection: 'row', // Alinear texto e icono horizontalmente
     alignItems: 'center', // Alinear texto e icono verticalmente
+  },
+  text: {
+    textAlign: "center",
+    color: "white",
   },
 });
 
