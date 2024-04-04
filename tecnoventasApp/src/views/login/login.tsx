@@ -88,6 +88,12 @@ export const LoginScreen = () => {
                             <Text style={styles.formRegisterText}>Regístrate</Text>
                         </TouchableOpacity>
                     </View>
+                    <View style={styles.formRegister}>
+                        <Text>ver</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('PerfilScreen')}>
+                            <Text style={styles.formRegisterText}>Perfil</Text>
+                        </TouchableOpacity>
+                    </View>
                 </ScrollView>
             </View>
         </View>
