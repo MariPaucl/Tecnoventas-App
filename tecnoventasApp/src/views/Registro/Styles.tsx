@@ -11,7 +11,7 @@ const RegistroStyles = StyleSheet.create({
         opacity: 0.5,
         bottom: '20%',
     },
-    form:{
+    form: {
         width: '100%',
         height: '65%',
         backgroundColor: 'rgba(255, 254, 254, 0.4)',
@@ -21,7 +21,7 @@ const RegistroStyles = StyleSheet.create({
         borderTopRightRadius: 40,
         padding: 30,
     },
-    formText:{
+    formText: {
         color: '#5b1753',
         fontWeight: 'bold',
         fontSize: 30,
@@ -36,7 +36,7 @@ const RegistroStyles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 25,
-        
+
     },
     inputImage: {
         width: 25,

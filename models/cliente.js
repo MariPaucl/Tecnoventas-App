@@ -1,11 +1,11 @@
 const mysql = require('../config/config');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const Cliente = {};
 
 Cliente.create = async (cliente, result) => {
     try {
-        const hashPass = await bcrypt.hash(cliente.passCliente, 10); 
+        const hashedPassword = await bcrypt.hash(cliente.passCliente, 10);
         const sql = `
             INSERT INTO clientes(
                 numId,
@@ -22,7 +22,7 @@ Cliente.create = async (cliente, result) => {
 
         mysql.query(
             sql,
-            [cliente.numId, cliente.tipoId, cliente.nomCliente, cliente.apeCliente, cliente.fechaNac, cliente.telefono, cliente.correo, hashPass],
+            [cliente.numId, cliente.tipoId, cliente.nomCliente, cliente.apeCliente, cliente.fechaNac, cliente.telefono, cliente.correo, hashedPassword],
             (err, res) => {
                 if (err) {
                     console.log('Error: ', err);
@@ -37,6 +37,19 @@ Cliente.create = async (cliente, result) => {
         console.error('Error al registrar el cliente:', error);
         result(error, null);
     }
+};
+
+Cliente.findBytipoId = (numId, result) => {
+    const sql = `SELECT numId, tipoId, nomCliente, fechaNac, apeCliente, telefono, correo, passCliente FROM clientes WHERE numId = ?`;
+    mysql.query(sql, [numId], (err, user) => {
+        if (err) {
+            console.log('Error al consultar: ', err);
+            result(err, null);
+        } else {
+            console.log('Usuario consultado: ', user[0]);
+            result(null, user[0]);
+        }
+    });
 };
 
 module.exports = Cliente;

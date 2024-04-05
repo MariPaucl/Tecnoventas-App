@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 
 export const useViewModel = () => {
     const [values, setValues] = useState({
-        Tipo_Documento: '',
-        Numero_Documento: '',
+        tipoId: '',
+        numId: '',
         passCliente: '',
+        telefono: '',
+        fechaNac: '',
+        nombreUsuario: '',
+        correo: '',
     });
 
     const onChange = (property: string, value: any) => {
@@ -13,7 +17,7 @@ export const useViewModel = () => {
 
     const login = async () => {
         try {
-            const response = await fetch('http://:3000/api/clientes/create', {
+            const response = await fetch('http://169.254.232.146:3000/api/clientes/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -21,7 +25,7 @@ export const useViewModel = () => {
                 body: JSON.stringify(values),
             });
             if (!response.ok) {
-                throw new Error('Error al registrar el cliente');
+                throw new Error('Error al validar el Cliente');
             }
             return true; // Indicar que el inicio de sesión fue exitoso
         } catch (error) {

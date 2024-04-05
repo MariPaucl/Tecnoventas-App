@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, ImageBackground, Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { withNavigation } from '@react-navigation/compat'; // Importa withNavigation
 
@@ -11,19 +12,40 @@ import CorreoIcon from '../../../assets/correo.png';
 
 const PerfilScreen = ({ navigation }) => { // Pasa navigation como una propiedad
   const [imagenPerfil, setImagenPerfil] = useState(require('../../../assets/usuario.png'));
-  const [tipoId, setTipoId] = useState('CC');
-  const [numId, setNumId] = useState('1023456327');
-  const [telefono, setTelefono] = useState('3124536788');
-  const [fechaNac, setFechaNac] = useState('25 - 12 - 2004');
-  const [nombreUsuario, setNombreUsuario] = useState('Sara Moreno');
-  const [correo, setCorreo] = useState('sara33@gmail.com');
+  const [tipoId, setTipoId] = useState('');
+  const [numId, setNumId] = useState('');
+  const [telefono, setTelefono] = useState('');
+  const [fechaNac, setFechaNac] = useState('');
+  const [nombreUsuario, setNombreUsuario] = useState('');
+  const [correo, setCorreo] = useState('');
 
+  useEffect(() => {
+    obtenerInformacionUsuario();
+  }, []);
+
+  const obtenerInformacionUsuario = async () => {
+    try {
+      const userInfoString = await AsyncStorage.getItem('userInfo');
+      if (userInfoString !== null) {
+        const userInfo = JSON.parse(userInfoString);
+        // Si hay datos almacenados, los establecemos en los estados
+        setTipoId(userInfo.tipoId);
+        setNumId(userInfo.numId);
+        setTelefono(userInfo.telefono);
+        setFechaNac(userInfo.fechaNac);
+        setNombreUsuario(userInfo.nombreUsuario);
+        setCorreo(userInfo.correo);
+      }
+    } catch (error) {
+      console.error('Error al obtener información del usuario:', error);
+    }
+  };
   const onPressEditarPerfil = () => {
     navigation.navigate("ActualizarScreen");
   };
 
   const onPressEliminarCuenta = () => {
-    navigation.navigate("DeleteScreen"); 
+    navigation.navigate("DeleteScreen");
   };
 
   return (
@@ -129,20 +151,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 10,
     color: '#fff', // Color negro
-     // Fondo blanco
-    paddingHorizontal: 10, 
-    borderRadius: 10, 
+    // Fondo blanco
+    paddingHorizontal: 10,
+    borderRadius: 10,
   },
   contenedorPerfil: {
-    backgroundColor: '#F5F5F5', 
-    borderRadius: 20, 
+    backgroundColor: '#F5F5F5',
+    borderRadius: 20,
     padding: 20,
     marginBottom: 20,
     width: '80%',
     alignItems: 'center',
     zIndex: 1,
-    marginTop: 290, 
-    
+    marginTop: 290,
+
   },
   tabla: {
     width: '100%',
@@ -186,12 +208,12 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   botonEditarPerfil: {
-    backgroundColor: '#7a2fbc', 
+    backgroundColor: '#7a2fbc',
     bottom: 10,
     left: 10,
   },
   botonEliminarCuenta: {
-    backgroundColor: '#7a2fbc', 
+    backgroundColor: '#7a2fbc',
     bottom: 10,
     right: 10,
   },

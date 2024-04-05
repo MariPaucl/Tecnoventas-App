@@ -1,5 +1,7 @@
 const Cliente = require('../models/cliente');
-
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const keys = require('../config/keys');
 module.exports = {
 
     register(req, res) {
@@ -22,9 +24,19 @@ module.exports = {
 
 
     login(req, res) {
-        const Tipo_Documento = req.body.Tipo_Documento;
+        const numId = req.body.numId;
+        const tipoId = req.body.tipoId;
         const passCliente = req.body.passCliente;
-        User.findByTipo_Documento(Tipo_Documento, async (err, myUser) => {
+
+        // Verificar si el tipoId es un valor válido (CC, CE, TI)
+        if (!['CC', 'CE', 'TI'].includes(tipoId)) {
+            return res.status(401).json({
+                success: false,
+                message: 'Tipo de documento no válido'
+            });
+        }
+
+        Cliente.findBytipoId(numId, async (err, myUser) => {
             if (err) {
                 return res.status(501).json({
                     success: false,
@@ -32,41 +44,50 @@ module.exports = {
                     error: err
                 });
             }
-            if (!myUser) { //Cliente sin autorización para realizar la
-                req
+            if (!myUser) {
                 return res.status(401).json({
                     success: false,
                     message: 'El Numero de Documento no existe en la base de datos'
                 });
             }
-            const ispassClienteValid = await bcrypt.compare(passCliente,
-                myUser.passCliente);
+            // Verificar si el tipoId coincide con el tipo de documento del usuario
+            if (myUser.tipoId !== tipoId) {
+                return res.status(401).json({
+                    success: false,
+                    message: 'Tipo de documento no coincide'
+                });
+            }
+
+            const ispassClienteValid = await bcrypt.compare(passCliente, myUser.passCliente);
             if (ispassClienteValid) {
                 const token = jwt.sign({
-                    id: myUser.id, Tipo_Documento: myUser.Tipo_Documento
+                    id: myUser.id, numId: myUser.numId
                 }, keys.secretOrKey, {});
                 const data = {
                     id: myUser.id,
-                    Tipo_Documento: myUser.Tipo_Documento,
-                    name: myUser.name,
-                    lastname: myUser.lastname,
-                    image: myUser.image,
-                    phone: myUser.phone,
+                    numId: myUser.numId,
+                    tipoId: myUser.tipoId,
+                    nomCliente: myUser.nomCliente,
+                    apeCliente: myUser.apeCliente,
+                    fechaNac: myUser.fechaNac,
+                    telefono: myUser.telefono,
+                    correo: myUser.correo,
+                    passCliente: myUser.passCliente,
                     session_token: `JWT ${token}`
-                }
+                };
+
+                // Realizar la redirección después de una autenticación exitosa
                 return res.status(201).json({
                     success: true,
-                    message: 'Usuario autenticado ',
+                    message: 'Usuario autenticado',
                     data: data
                 });
-            }
-            else {
+            } else {
                 return res.status(401).json({
                     success: false,
                     message: 'Contraseña incorrecta'
                 });
             }
         });
-    },
+    }
 }
-

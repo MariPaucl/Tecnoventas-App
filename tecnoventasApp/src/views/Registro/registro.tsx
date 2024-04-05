@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { Text, View, Image, ScrollView, TouchableOpacity, Alert, ToastAndroid } from 'react-native';
 import { RoundedButton } from '../../components/RoundedButton';
-import { StackNavigationProp} from '@react-navigation/stack';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../../App';
 import useViewModel from './ViewModel';
 import { CustomTextInput } from '../../components/CustomTextInputs';
@@ -26,8 +26,8 @@ export const RegistroScreen = () => {
 
     const handleRegister = async () => {
         if (!tipoId || !numId || !nomCliente || !apeCliente || !fechaNac || !telefono || !correo || !passCliente) {
-                ToastAndroid.show('Todos los campos son obligatorios!', ToastAndroid.SHORT);
-                return;
+            ToastAndroid.show('Todos los campos son obligatorios!', ToastAndroid.SHORT);
+            return;
         }
         const today = new Date();
         const minAgeDate = new Date();
@@ -46,117 +46,117 @@ export const RegistroScreen = () => {
         }
     };
 
-    
+
 
     return (
         <View style={styles.container}>
             <Image
-            source={ require('../../../assets/tecnoventasfondo.jpg')}
-            style={styles.imageBackground}
+                source={require('../../../assets/tecnoventasfondo.jpg')}
+                style={styles.imageBackground}
             />
-        <View style={styles.logoContainer}>
-            <Image
-            source={require('../../../assets/Tecnoventas.png')}
-            style={styles.logoImage}
-            />
-            <Text style={styles.logoText}>BIENVENID@</Text>
+            <View style={styles.logoContainer}>
+                <Image
+                    source={require('../../../assets/Tecnoventas.png')}
+                    style={styles.logoImage}
+                />
+                <Text style={styles.logoText}>BIENVENID@</Text>
             </View>
             <View style={styles.form}>
-            <Text style={styles.formText}>REGISTRATE</Text>
-            <ScrollView>
-            <View style={styles.inputContainer}>
-                <Image
-                    source={require('../../../assets/ID.png')}
-                    style={styles.inputImage}
-                />
-            <View style={styles.pickerContainer}>
-                <Picker
-                    style={styles.picker}
-                    selectedValue={tipoId}
-                    onValueChange={(itemValue, itemIndex) => onChange('tipoId', itemValue)}>
-                    <Picker.Item label="Tipo de Identificacion" value="" />
-                    <Picker.Item label="T.I." value="TI" />
-                    <Picker.Item label="C.C." value="CC" />
-                    <Picker.Item label="C.E." value="CE" />
-                </Picker>
-            </View>
-            </View>
-            <CustomTextInput
-                image={require('../../../assets/ID.png')}
-                placeholder='No. Identificacion'
-                keyboardType='numeric'
-                property='numId'
-                onChangeText={onChange}
-                value={numId}
-            />
-            <CustomTextInput
-                image={require('../../../assets/user.png')}
-                placeholder='Nombre'
-                keyboardType='default'
-                property='nomCliente'
-                onChangeText={onChange}
-                value={nomCliente}
-            />
-            <CustomTextInput
-                image={require('../../../assets/user.png')}
-                placeholder='Apellido'
-                keyboardType='default'
-                property='apeCliente'
-                onChangeText={onChange}
-                value={apeCliente}
-            />
-            <TouchableOpacity onPress={() => setShowDatePicker(true)}>
-                <View style={styles.inputContainer}>
-                    <Image
-                        source={require('../../../assets/date.png')}
-                        style={styles.inputImage}
+                <Text style={styles.formText}>REGISTRATE</Text>
+                <ScrollView>
+                    <View style={styles.inputContainer}>
+                        <Image
+                            source={require('../../../assets/ID.png')}
+                            style={styles.inputImage}
+                        />
+                        <View style={styles.pickerContainer}>
+                            <Picker
+                                style={styles.picker}
+                                selectedValue={tipoId}
+                                onValueChange={(itemValue, itemIndex) => onChange('tipoId', itemValue)}>
+                                <Picker.Item label="Tipo de Identificacion" value="" />
+                                <Picker.Item label="T.I." value="TI" />
+                                <Picker.Item label="C.C." value="CC" />
+                                <Picker.Item label="C.E." value="CE" />
+                            </Picker>
+                        </View>
+                    </View>
+                    <CustomTextInput
+                        image={require('../../../assets/ID.png')}
+                        placeholder='No. Identificacion'
+                        keyboardType='numeric'
+                        property='numId'
+                        onChangeText={onChange}
+                        value={numId}
                     />
-                    <Text style={styles.formTextInput}>{selectedDate.toDateString()}</Text>
-                </View>
-            </TouchableOpacity>
-            {showDatePicker && (
-                <DateTimePicker
-                    value={selectedDate}
-                    mode="date"
-                    display="default"
-                    onChange={handleDateChange}
-                />
-            )}
-            <CustomTextInput
-                image={require('../../../assets/tel.png')}
-                placeholder='Telefono'
-                keyboardType='numeric'
-                property='telefono'
-                onChangeText={onChange}
-                value={telefono}
-            />
-            <CustomTextInput
-                image={require('../../../assets/email.png')}
-                placeholder='Correo Electronico'
-                keyboardType='email-address'
-                property='correo'
-                onChangeText={onChange}
-                value={correo}
-            />
-            <CustomTextInput
-                image={require('../../../assets/pass.png')}
-                placeholder='Contraseña'
-                keyboardType='default'
-                secureTextEntry={true}
-                property='passCliente'
-                onChangeText={onChange}
-                value={passCliente}
-            />
+                    <CustomTextInput
+                        image={require('../../../assets/user.png')}
+                        placeholder='Nombre'
+                        keyboardType='default'
+                        property='nomCliente'
+                        onChangeText={onChange}
+                        value={nomCliente}
+                    />
+                    <CustomTextInput
+                        image={require('../../../assets/user.png')}
+                        placeholder='Apellido'
+                        keyboardType='default'
+                        property='apeCliente'
+                        onChangeText={onChange}
+                        value={apeCliente}
+                    />
+                    <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+                        <View style={styles.inputContainer}>
+                            <Image
+                                source={require('../../../assets/date.png')}
+                                style={styles.inputImage}
+                            />
+                            <Text style={styles.formTextInput}>{selectedDate.toDateString()}</Text>
+                        </View>
+                    </TouchableOpacity>
+                    {showDatePicker && (
+                        <DateTimePicker
+                            value={selectedDate}
+                            mode="date"
+                            display="default"
+                            onChange={handleDateChange}
+                        />
+                    )}
+                    <CustomTextInput
+                        image={require('../../../assets/tel.png')}
+                        placeholder='Telefono'
+                        keyboardType='numeric'
+                        property='telefono'
+                        onChangeText={onChange}
+                        value={telefono}
+                    />
+                    <CustomTextInput
+                        image={require('../../../assets/email.png')}
+                        placeholder='Correo Electronico'
+                        keyboardType='email-address'
+                        property='correo'
+                        onChangeText={onChange}
+                        value={correo}
+                    />
+                    <CustomTextInput
+                        image={require('../../../assets/pass.png')}
+                        placeholder='Contraseña'
+                        keyboardType='default'
+                        secureTextEntry={true}
+                        property='passCliente'
+                        onChangeText={onChange}
+                        value={passCliente}
+                    />
 
-            <View style={{marginTop: 30}}>
-                <RoundedButton text='Registrarse' onPress={handleRegister}/>
-            </View>
-            <View style={styles.link}>
-            <Text>¿Ya tienes cuenta?</Text>
-            <TouchableOpacity><Text style={styles.linkText} onPress={() => navigation.navigate("LoginScreen")}>Inicia Sesion</Text></TouchableOpacity>
-            </View>
-            </ScrollView>
+                    <View style={{ marginTop: 30 }}>
+                        <RoundedButton text='Registrarse' onPress={handleRegister} />
+                    </View>
+                    <View style={styles.link}>
+                        <Text>¿Ya tienes cuenta?</Text>
+                        <TouchableOpacity><Text style={styles.linkText} onPress={() => navigation.navigate("LoginScreen")}>Inicia Sesion</Text></TouchableOpacity>
+                    </View>
+                </ScrollView>
             </View>
         </View>
-        );
-    }
+    );
+}

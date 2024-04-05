@@ -9,19 +9,31 @@ import { CustomTextInput } from '../../components/CustomTextInputs';
 import styles from './Styles';
 import { Picker } from '@react-native-picker/picker';
 import { RegistroScreen } from '../Registro/registro';
+import { ProductosScreen } from '../Productos/productos';
+import { Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export const LoginScreen = () => {
-    const { Tipo_Documento, Numero_Documento, passCliente, onChange, login } = useViewModel();
+    const { tipoId, numId, passCliente, telefono, fechaNac, nombreUsuario, correo, onChange, login, } = useViewModel();
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-    const [tipoDocumento, setTipoDocumento] = useState<string>('');
 
     const handleLogin = async () => {
-        if (Tipo_Documento === '' || Numero_Documento === '' || passCliente === '') {
+        if (tipoId === '' || numId === '' || passCliente === '') {
             ToastAndroid.show('Por favor, completa todos los campos.', ToastAndroid.SHORT);
         } else {
             const success = await login();
             if (success) {
-                // Caso de inicio de sesión exitoso
+
+
+                const userInfo = { tipoId, numId, telefono, fechaNac, nombreUsuario, correo };
+                await AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
+
+                Alert.alert('Sesion Exitosa', 'Bienvenido A tecnoventas');
+                navigation.navigate('ProductosScreen');
+
+
+                // Aquí puedes hacer algo en caso de inicio de sesión exitoso
             } else {
                 ToastAndroid.show('El Numero De Documento O la contraseña no coinciden.', ToastAndroid.SHORT);
             }
@@ -52,32 +64,40 @@ export const LoginScreen = () => {
                             style={{ width: 24, height: 24, marginRight: 8 }}
                         />
                         <Picker
-                            style={{ flex: 1 }}
-                            selectedValue={tipoDocumento}
-                            onValueChange={(itemValue, itemIndex) => setTipoDocumento(itemValue)} >
 
+                            style={{ color: 'white', flex: 1 }}
+                            selectedValue={tipoId}
+                            onValueChange={(itemValue, itemIndex) => onChange('tipoId', itemValue)}
+                        >
                             <Picker.Item label="Tipo de documento" value={null} enabled={false} />
-                            <Picker.Item label="Cedula" value="Cedula" />
-                            <Picker.Item label="Tarjeta de Identidad" value="Tarjeta de Identidad" />
+                            <Picker.Item label="C.C" value="CC" />
+                            <Picker.Item label="C.E" value="CE" />
+                            <Picker.Item label="T.I" value="TI" />
                         </Picker>
+
+
+
+
                     </View>
 
                     <CustomTextInput
                         image={require('../../../assets/ID.png')}
-                        placeholder='Numero-Documento'
-                        value={Numero_Documento}
+                        placeholder='Numero Documento'
+                        value={numId}
                         keyboardType='numeric'
-                        property='Numero_Documento'
+                        property='numId'
                         onChangeText={onChange}
+                        placeholderTextColor='#CDCDCD'
                     />
                     <CustomTextInput
                         image={require('../../../assets/pass.png')}
-                        placeholder='contraseña'
+                        placeholder='Contraseña'
                         value={passCliente}
                         keyboardType='default'
                         secureTextEntry={true}
                         property='passCliente'
                         onChangeText={onChange}
+                        placeholderTextColor='#CDCDCD'
                     />
                     <View style={{ marginTop: 30 }}>
                         <RoundedButton text='ENTRAR' onPress={handleLogin} />
@@ -86,12 +106,6 @@ export const LoginScreen = () => {
                         <Text>¿No tienes cuenta?</Text>
                         <TouchableOpacity onPress={() => navigation.navigate('RegistroScreen')}>
                             <Text style={styles.formRegisterText}>Regístrate</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.formRegister}>
-                        <Text>Ingresar</Text>
-                        <TouchableOpacity onPress={() => navigation.navigate('ProductosScreen')}>
-                            <Text style={styles.formRegisterText}>Productos</Text>
                         </TouchableOpacity>
                     </View>
                 </ScrollView>

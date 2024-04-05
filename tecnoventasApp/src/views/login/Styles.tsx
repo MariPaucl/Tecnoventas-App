@@ -13,7 +13,7 @@ const loginStyles = StyleSheet.create({
     form: {
         width: '100%',
         height: '40%',
-        backgroundColor: 'white',
+        backgroundColor: 'rgba(190, 190, 190, 0.5)',
         position: 'absolute',
         bottom: 0,
         borderTopLeftRadius: 40,
@@ -21,6 +21,8 @@ const loginStyles = StyleSheet.create({
         padding: 30,
     },
     formText: {
+
+        color: '#5b1753',
         fontWeight: 'bold',
         fontSize: 20,
         textAlign: 'left',
@@ -46,6 +48,7 @@ const loginStyles = StyleSheet.create({
         alignSelf: 'center',
         top: '15%',
     },
+
     logoImage: {
         width: 250,
         height: 250,
