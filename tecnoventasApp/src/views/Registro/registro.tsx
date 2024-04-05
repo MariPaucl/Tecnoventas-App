@@ -1,27 +1,52 @@
 import React, {useState} from 'react'
 import { useNavigation } from '@react-navigation/native';
-import { Text, View, Image, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { Text, View, Image, ScrollView, TouchableOpacity, Alert, ToastAndroid } from 'react-native';
 import { RoundedButton } from '../../components/RoundedButton';
 import { StackNavigationProp} from '@react-navigation/stack';
 import { RootStackParamList } from '../../../App';
 import useViewModel from './ViewModel';
 import { CustomTextInput } from '../../components/CustomTextInputs';
+import { Picker } from '@react-native-picker/picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import styles from './Styles';
 
 export const RegistroScreen = () => {
-    const { numId, tipoId, nomCliente, apeCliente, fechaNac, telefono, correo, passCliente, onChange, register } = useViewModel();
+    const { tipoId, numId, nomCliente, apeCliente, fechaNac, telefono, correo, passCliente, onChange, register } = useViewModel();
+    const [showDatePicker, setShowDatePicker] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+    const handleDateChange = (event: any, date: Date | undefined) => {
+        setShowDatePicker(false);
+        if (date) {
+            setSelectedDate(date);
+            onChange('fechaNac', date);
+        }
+    };
 
     const handleRegister = async () => {
+        if (!tipoId || !numId || !nomCliente || !apeCliente || !fechaNac || !telefono || !correo || !passCliente) {
+                ToastAndroid.show('Todos los campos son obligatorios!', ToastAndroid.SHORT);
+                return;
+        }
+        const today = new Date();
+        const minAgeDate = new Date();
+        minAgeDate.setFullYear(today.getFullYear() - 16);
+        if (selectedDate > minAgeDate) {
+            ToastAndroid.show('Debes tener al menos 16 años para registrarte', ToastAndroid.SHORT);
+            return;
+        }
         try {
             await register();
-            Alert.alert('Registro Exitoso', 'Te has registrado correctamente');
+            Alert.alert('Registro Exitoso', 'Te has registrado correctamente\nAhora Inicia Sesion!');
+            navigation.navigate('LoginScreen');
         } catch (error) {
             Alert.alert('Error', 'Hubo un error al registrarte. Por favor, inténtalo de nuevo.');
             console.error('Error en el registro:', error);
         }
     };
-    const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList>>();
+
+    
 
     return (
         <View style={styles.container}>
@@ -39,6 +64,23 @@ export const RegistroScreen = () => {
             <View style={styles.form}>
             <Text style={styles.formText}>REGISTRATE</Text>
             <ScrollView>
+            <View style={styles.inputContainer}>
+                <Image
+                    source={require('../../../assets/ID.png')}
+                    style={styles.inputImage}
+                />
+            <View style={styles.pickerContainer}>
+                <Picker
+                    style={styles.picker}
+                    selectedValue={tipoId}
+                    onValueChange={(itemValue, itemIndex) => onChange('tipoId', itemValue)}>
+                    <Picker.Item label="Tipo de Identificacion" value="" />
+                    <Picker.Item label="T.I." value="TI" />
+                    <Picker.Item label="C.C." value="CC" />
+                    <Picker.Item label="C.E." value="CE" />
+                </Picker>
+            </View>
+            </View>
             <CustomTextInput
                 image={require('../../../assets/ID.png')}
                 placeholder='No. Identificacion'
@@ -46,14 +88,6 @@ export const RegistroScreen = () => {
                 property='numId'
                 onChangeText={onChange}
                 value={numId}
-            />
-            <CustomTextInput
-                image={require('../../../assets/ID.png')}
-                placeholder='Tipo identificacion'
-                keyboardType='default'
-                property='tipoId'
-                onChangeText={onChange}
-                value={tipoId}
             />
             <CustomTextInput
                 image={require('../../../assets/user.png')}
@@ -71,14 +105,23 @@ export const RegistroScreen = () => {
                 onChangeText={onChange}
                 value={apeCliente}
             />
-            <CustomTextInput
-                image={require('../../../assets/date.png')}
-                placeholder='Fecha Nacimiento'
-                keyboardType='default'
-                property='fechaNac'
-                onChangeText={onChange}
-                value={fechaNac}
-            />
+            <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+                <View style={styles.inputContainer}>
+                    <Image
+                        source={require('../../../assets/date.png')}
+                        style={styles.inputImage}
+                    />
+                    <Text style={styles.formTextInput}>{selectedDate.toDateString()}</Text>
+                </View>
+            </TouchableOpacity>
+            {showDatePicker && (
+                <DateTimePicker
+                    value={selectedDate}
+                    mode="date"
+                    display="default"
+                    onChange={handleDateChange}
+                />
+            )}
             <CustomTextInput
                 image={require('../../../assets/tel.png')}
                 placeholder='Telefono'
@@ -110,7 +153,7 @@ export const RegistroScreen = () => {
             </View>
             <View style={styles.link}>
             <Text>¿Ya tienes cuenta?</Text>
-            <TouchableOpacity><Text style={styles.linkText} onPress={() => navigation.navigate("ProductosScreen")}>Inicia Sesion</Text></TouchableOpacity>
+            <TouchableOpacity><Text style={styles.linkText} onPress={() => navigation.navigate("LoginScreen")}>Inicia Sesion</Text></TouchableOpacity>
             </View>
             </ScrollView>
             </View>

@@ -1,9 +1,11 @@
 const mysql = require('../config/config');
+const bcrypt = require('bcrypt');
 
 const Cliente = {};
 
 Cliente.create = async (cliente, result) => {
     try {
+        const hashPass = await bcrypt.hash(cliente.passCliente, 10); 
         const sql = `
             INSERT INTO clientes(
                 numId,
@@ -20,7 +22,7 @@ Cliente.create = async (cliente, result) => {
 
         mysql.query(
             sql,
-            [cliente.numId, cliente.tipoId, cliente.nomCliente, cliente.apeCliente, cliente.fechaNac, cliente.telefono, cliente.correo, cliente.passCliente],
+            [cliente.numId, cliente.tipoId, cliente.nomCliente, cliente.apeCliente, cliente.fechaNac, cliente.telefono, cliente.correo, hashPass],
             (err, res) => {
                 if (err) {
                     console.log('Error: ', err);
