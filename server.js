@@ -20,7 +20,7 @@ clienteRoutes(app);
 productoRoutes(app);
 
 //ipconfig para saber ip
-server.listen(port, '192.168.0.16' || 'localhost', function() {
+server.listen(port, '' || 'localhost', function() {
     console.log('Aplicacion Tecnoventas ' + process.pid + ' inicio en el puerto ' + port);
 });
 

@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 
+const e='22'//Id al cual se la cambian los valores
+
 export const useViewModel = () => {
     const [values, setValues] = useState({
         nomCliente: '',
@@ -7,6 +9,7 @@ export const useViewModel = () => {
         fechaNac: '',
         telefono: '',
         correo: '',
+        numId: e,
     });
 
     const onChange = (property: string, value: any) => {
@@ -15,8 +18,8 @@ export const useViewModel = () => {
 
     const update = async () => {
         try {
-            const response = await fetch('http://192.168.0.16:3000/api/clientes/update', {
-                method: 'PUT',
+            const response = await fetch('http://:3000/api/clientes/update', {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },

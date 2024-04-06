@@ -52,4 +52,37 @@ Cliente.findBytipoId = (numId, result) => {
     });
 };
 
+Cliente.update = async (cliente, result) => {
+    try {
+        const sql = `
+            UPDATE clientes 
+            SET 
+                nomCliente = ?, 
+                apeCliente = ?, 
+                fechaNac = ?, 
+                telefono = ?, 
+                correo = ? 
+            WHERE 
+            numId = ?
+        `;
+
+        mysql.query(
+            sql,
+            [cliente.nomCliente, cliente.apeCliente, cliente.fechaNac, cliente.telefono, cliente.correo, cliente.numId],
+            (err, res) => {
+                if (err) {
+                    console.log('Error: ', err);
+                    result(err, null);
+                } else {
+                    console.log('Cliente actualizado');
+                    result(null, res);
+                }
+            }
+        );
+    } catch (error) {
+        console.error('Error al actualizar el cliente:', error);
+        result(error, null);
+    }
+};
+
 module.exports = Cliente;

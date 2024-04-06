@@ -9,15 +9,16 @@ import { CustomTextInput } from '../../components/CustomTextInputs';
 import styles from './Styles';
 
 export const ActualizarScreen = () => {
-    const {nomCliente, apeCliente, fechaNac, telefono, correo, onChange, update } = useViewModel();
+    const {nomCliente, apeCliente, fechaNac, telefono, correo, numId, onChange, update } = useViewModel();
 
     const handleUpdate = async () => {
         try {
             await update();
-            Alert.alert('Registro Exitoso', 'Te has registrado correctamente');
+            Alert.alert('Actualizacion Exitosa', 'Has actualizado datos correctamente');
+            navigation.navigate('PerfilScreen'); 
         } catch (error) {
-            Alert.alert('Error', 'Hubo un error al registrarte. Por favor, inténtalo de nuevo.');
-            console.error('Error en el registro:', error);
+            Alert.alert('Error', 'Hubo un error al Actualizar. Por favor, inténtalo de nuevo.');
+            console.error('Error en la actualizacion:', error);
         }
     };
     const navigation =
@@ -26,7 +27,7 @@ export const ActualizarScreen = () => {
     return (
         <View style={styles.container}>
             <Image
-            source={ require('../../../assets/tecnoventasfondo.jpg')}
+            source={ require('../../../assets/fondopru.jpeg')}
             style={styles.imageBackground}
             />
         <View style={styles.logoContainer}>
@@ -37,7 +38,10 @@ export const ActualizarScreen = () => {
             <Text style={styles.logoText}>Editar datos</Text>
             </View>
             <View style={styles.form}>
-            <Text style={styles.formText}>Datos del cliente</Text>
+            <Text style={styles.formText}>Datos del cliente <Image
+            source={require('../../../assets/lapiz.png')}
+            style={styles.logoador}
+            /></Text>
             <ScrollView>
             <CustomTextInput
                 image={require('../../../assets/user.png')}
@@ -79,7 +83,14 @@ export const ActualizarScreen = () => {
                 onChangeText={onChange}
                 value={fechaNac}
             />
-
+            <CustomTextInput
+                image={require('../../../assets/date.png')}
+                placeholder='numId'
+                keyboardType='default'
+                property='numId'
+                onChangeText={onChange}
+                value={numId}
+            />
             <View style={{marginTop: 30}}>
                 <RoundedButton text='Guardar' onPress={handleUpdate}/>
             </View>
@@ -87,4 +98,4 @@ export const ActualizarScreen = () => {
             </View>
         </View>
         );
-    }
+}

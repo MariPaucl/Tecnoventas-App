@@ -14,7 +14,7 @@ const UpdateStyles = StyleSheet.create({
     form:{
         width: '100%',
         height: '67%',
-        backgroundColor: 'white',
+        backgroundColor: 'rgba(255, 254, 254, 0.4)',
         position: 'absolute',
         bottom: 0,
         borderTopLeftRadius: 40,
@@ -53,6 +53,11 @@ const UpdateStyles = StyleSheet.create({
     logoImage: {
         width: 150,
         height: 150,
+    },
+    logoador: {
+        width: 18,
+        height: 18,
+        marginTop: 4,
     },
     logoText: {
         color: 'white',

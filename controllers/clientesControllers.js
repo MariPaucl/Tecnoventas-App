@@ -89,5 +89,22 @@ module.exports = {
                 });
             }
         });
-    }
+    },
+    update(req, res) {
+        const cliente = req.body;
+        Cliente.update(cliente, (err, data) => {
+            if (err) {
+                return res.status(500).json({
+                    success: false,
+                    message: 'Error al actualizar datos del cliente',
+                    error: err
+                });
+            }
+            return res.status(201).json({
+                success: true,
+                message: 'Datos del cliente actualizados',
+                data: data
+            });
+        });
+    },
 }
