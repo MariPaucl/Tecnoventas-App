@@ -2,7 +2,7 @@ const mysql = require('../config/config');
 
 const Producto = {};
 
-Producto.visualizar = async (producto, result) => {
+Producto.visualizar = async (codigoCat, result) => {
     try {
         const sql = `
         SELECT 
@@ -18,7 +18,7 @@ Producto.visualizar = async (producto, result) => {
 
         mysql.query(
             sql,
-            [producto.codigoCat],
+            [codigoCat],
             (err, res) => {
                 if (err) {
                     console.log('Error: ', err);

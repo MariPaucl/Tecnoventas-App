@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
     formTextInput: {
         color: 'white',
         flex: 1,
-        borderBottomWidth: 1,
-        borderBottomColor: '#AAAAAA',
+        borderBottomWidth: 2,
+        borderBottomColor: '#5b1753',
         marginLeft: 15,
     }
 })

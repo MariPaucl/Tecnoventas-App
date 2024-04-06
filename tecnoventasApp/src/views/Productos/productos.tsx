@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Text, View, Image, ScrollView, TouchableOpacity, Linking } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -18,6 +18,31 @@ const categorias = [
 export const ProductosScreen = () => {
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
     const [selectedCategory, setSelectedCategory] = useState<string | undefined>(undefined);
+    const [productos, setProductos] = useState<any[]>([]);
+
+    useEffect(() => {
+        if (selectedCategory) {
+            fetchProductos(selectedCategory);
+        }
+    }, [selectedCategory]);
+
+    const fetchProductos = async (codigoCat: string) => {
+        try {
+            const response = await fetch('http://192.168.0.16:3000/api/productos/visualizar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ codigoCat })
+            });
+            const data = await response.json();
+            setProductos(data);
+            console.log('Categoría Seleccionada: ', codigoCat);
+            console.log('Prodcutos: ', data);
+        } catch (error) {
+            console.error('Error fetching productos:', error);
+        }
+    };
 
     const handleIngresaAquiClick = () => {
         Linking.openURL('http://localhost/Tecnoventas-proyect/');
@@ -27,7 +52,7 @@ export const ProductosScreen = () => {
         <View style={styles.container}>
             <Image source={require('../../../assets/fondo.jpg')} style={styles.imageBackground} />
             <View style={styles.header}>
-                <Text style={styles.title}>TIENDA</Text>
+                <Text style={styles.title}>PRODUCTOS</Text>
                 <View style={styles.pickerContainer}>
                 <Picker
                     selectedValue={selectedCategory}
@@ -40,26 +65,23 @@ export const ProductosScreen = () => {
                     ))}
                 </Picker>
                 </View>
-                <TouchableOpacity
-                    style={styles.boton1}
-                    onPress={() => {
-                        console.log('Categoría seleccionada:', selectedCategory);
-                    }}
-                >
-                    <Text style={styles.buttonText}>VER PRODUCTOS</Text>
-                </TouchableOpacity>
+                <View style={styles.boton1}>
+                    <Text style={{color: 'white', fontWeight: 'bold', fontSize: 13}}>SELECCIONA LA CATEGORIA ⬆</Text>
+                </View>
                 <ScrollView style={styles.productosContainer}>
-                    <TouchableOpacity style={styles.card}>
-                        <Image
-                            source={require('../../../assets/Productos/samsungs21fe.png')}
-                            style={styles.cardImage}
-                        />
-                        <View style={styles.cardContent}>
-                            <Text style={styles.cardTitle}>Samsung S21 Fe</Text>
-                            <Text style={styles.cardSubtitle}>1959000</Text>
-                            <Text style={styles.cardDescription}>Disponible</Text>
-                        </View>
-                    </TouchableOpacity>
+                    {productos.map((producto, index) => (
+                        <TouchableOpacity key={index} style={styles.card}>
+                            <Image 
+                                source={require(`../../../assets/Productos/producto.png`)}
+                                style={styles.productImage} 
+                            />
+                            <View style={styles.cardContent}>
+                            <Text numberOfLines={2} style={styles.productName}>{producto.nomProd}</Text>
+                            <Text style={styles.productPrice}>{producto.precio}</Text>
+                            <Text style={styles.productStatus}>{producto.estProd}</Text>
+                            </View>
+                        </TouchableOpacity>
+                    ))}
                 </ScrollView>
             </View>
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('PerfilScreen')}>
@@ -68,9 +90,7 @@ export const ProductosScreen = () => {
             <View style={styles.enlace}>
                 <Text style={styles.enlaceText}>¿Quieres comprar estos productos?</Text>
                 <TouchableOpacity onPress={handleIngresaAquiClick}>
-                    <Text style={styles.enlaceText2}>
-                        Ingresa Aquí
-                    </Text>
+                    <Text style={styles.enlaceText2}>Ingresa Aquí</Text>
                 </TouchableOpacity>
             </View>
         </View>

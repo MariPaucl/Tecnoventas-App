@@ -1,10 +1,9 @@
 const Producto = require('../models/productos')
 
 module.exports = {
-
     read(req, res) {
-        const producto = req.body;
-        Producto.visualizar(producto, (err, data) => {
+        const { codigoCat } = req.body;
+        Producto.visualizar(codigoCat, (err, data) => {
             if (err) {
                 return res.status(501).json({
                     succes: false,

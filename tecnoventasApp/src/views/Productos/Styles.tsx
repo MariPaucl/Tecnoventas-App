@@ -41,39 +41,46 @@ const ProductosStyles = StyleSheet.create({
     },
     productosContainer: {
         width: '100%',
-        marginTop: 60,
+        marginTop: 50,
+        marginBottom: 20,
+        paddingHorizontal: 50,
+        
+    },
+    cardContent: {
+        flexDirection: 'column',
+        maxWidth: width * 0.6,
     },
     card: {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: '#ffffff',
         borderRadius: 10,
-        marginBottom: 10,
+        marginBottom: 20,
         padding: 10,
     },
-    cardImage: {
+    productImage: {
         width: 70,
-        height: 100,
+        height: 90,
         borderRadius: 10,
         marginRight: 10,
     },
-    cardContent: {
-        flex: 0,
-    },
-    cardTitle: {
-        fontSize: 18,
+    productName: {
+        fontSize: 16,
         fontWeight: 'bold',
         marginBottom: 5,
         color: '#333333',
+        flex: 1,
     },
-    cardSubtitle: {
-        fontSize: 16,
+    productPrice: {
+        fontSize: 15,
         color: '#666666',
         marginBottom: 5,
     },
-    cardDescription: {
+    productStatus: {
         fontSize: 15,
-        color: 'green',
+        color: '#790bcd',
+        textTransform: 'uppercase',
+        fontWeight: 'bold',
     },
     boton1: {
         width: 200,
