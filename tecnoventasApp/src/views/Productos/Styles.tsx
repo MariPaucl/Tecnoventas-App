@@ -1,4 +1,6 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+
+const { width } = Dimensions.get('window');
 
 const ProductosStyles = StyleSheet.create({
     container:{
@@ -27,15 +29,15 @@ const ProductosStyles = StyleSheet.create({
         color: 'white',
         marginBottom: 50,
     },
-    inputCategory: {
-        width: '100%',
-        height: 40,
+    pickerContainer: {
         borderWidth: 2,
         borderColor: '#790bcd',
-        borderRadius: 5,
-        paddingHorizontal: 10,
+        borderRadius: 3,
         marginBottom: 10,
-        backgroundColor: '#ffffff',
+    },
+    picker: {
+        width: width * 0.8,
+        backgroundColor: '#fff',
     },
     productosContainer: {
         width: '100%',

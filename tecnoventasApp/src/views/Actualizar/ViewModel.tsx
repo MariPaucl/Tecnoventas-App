@@ -15,7 +15,7 @@ export const useViewModel = () => {
 
     const update = async () => {
         try {
-            const response = await fetch('http://172.29.240.1:3000/api/clientes/update', {
+            const response = await fetch('http://192.168.0.16:3000/api/clientes/update', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
