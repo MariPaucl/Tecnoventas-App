@@ -107,4 +107,20 @@ module.exports = {
             });
         });
     },
+    deleteAccount(req, res) {
+        const correo = req.body.correo; // Suponiendo que el correo se envía en el cuerpo de la solicitud
+        Cliente.deleteAccount(correo, (err, result) => {
+            if (err) {
+                return res.status(500).json({
+                    success: false,
+                    message: 'Error al eliminar la cuenta del cliente',
+                    error: err
+                });
+            }
+            return res.status(200).json({
+                success: true,
+                message: result.message
+            });
+        });
+    }
 }

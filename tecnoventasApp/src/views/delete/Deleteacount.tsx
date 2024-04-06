@@ -12,16 +12,23 @@ import {
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../App";
 import styles from "./styles";
+import { useViewModel } from "./ViewModel";
 
 const DeleteScreen = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const [email, setEmail] = useState("");
+  const { deleteAccount } = useViewModel();
 
-  const handleConfirm = () => {
-    // Implementar la lógica para confirmar la eliminación de la cuenta con el correo ingresado
-    // Por ahora, simplemente se mostrara un mensaje de confirmación
-    alert(`Cuenta eliminada para el correo: ${email}`);
+  const handleConfirm = async () => {
+    try {
+      await deleteAccount();
+      alert(`Cuenta eliminada para el correo: ${email}`);
+      navigation.navigate(Home); 
+    } catch (error) {
+      alert('Error al eliminar la cuenta del cliente');
+    }
   };
+  
 
   return (
     <ImageBackground

@@ -85,4 +85,20 @@ Cliente.update = async (cliente, result) => {
     }
 };
 
+Cliente.deleteAccount = (correo, callback) => {
+    const sql = 'DELETE FROM clientes WHERE correo = ?';
+    mysql.query(sql, [correo], (err, result) => {
+        if (err) {
+            console.error('Error al eliminar la cuenta del cliente:', err);
+            return callback(err, null);
+        }
+        if (result.affectedRows === 0) {
+            console.log('La cuenta del cliente no existe');
+            return callback(null, { message: 'La cuenta del cliente no existe' });
+        }
+        console.log('Cuenta de cliente eliminada exitosamente');
+        return callback(null, { message: 'Cuenta de cliente eliminada exitosamente' });
+    });
+};
+
 module.exports = Cliente;
