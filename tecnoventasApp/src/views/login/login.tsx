@@ -15,27 +15,27 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export const LoginScreen = () => {
-    const { tipoId, numId, passCliente, telefono, fechaNac, nombreUsuario, correo, onChange, login, } = useViewModel();
+    const { tipoId, numId, passCliente, onChange, login, } = useViewModel();
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
     const handleLogin = async () => {
         if (tipoId === '' || numId === '' || passCliente === '') {
             ToastAndroid.show('Por favor, completa todos los campos.', ToastAndroid.SHORT);
         } else {
-            const success = await login();
-            if (success) {
-
-
-                const userInfo = { tipoId, numId, telefono, fechaNac, nombreUsuario, correo };
-                await AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
-
-                Alert.alert('Sesion Exitosa', 'Bienvenido A tecnoventas');
-                navigation.navigate('ProductosScreen');
-
-
-                // Aquí puedes hacer algo en caso de inicio de sesión exitoso
-            } else {
-                ToastAndroid.show('El Numero De Documento O la contraseña no coinciden.', ToastAndroid.SHORT);
+            try {
+                const success = await login();
+                if (success) {
+                    const userInfo = { numId };
+                    await AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
+                    console.log('numId almacenado en AsyncStorage:', numId); // Agregar console.log
+                    Alert.alert('Sesion Exitosa', 'Bienvenido A tecnoventas');
+                    navigation.navigate('ProductosScreen');
+                } else {
+                    ToastAndroid.show('El Numero De Documento O la contraseña no coinciden.', ToastAndroid.SHORT);
+                }
+            } catch (error) {
+                console.error('Error al iniciar sesión:', error);
+                ToastAndroid.show('Error al iniciar sesión.', ToastAndroid.SHORT);
             }
         }
     };

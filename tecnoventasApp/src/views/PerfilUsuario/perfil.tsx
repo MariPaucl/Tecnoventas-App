@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { View, ImageBackground, Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { withNavigation } from '@react-navigation/compat'; // Importa withNavigation
+import { View, ImageBackground, Image, StyleSheet, Text, Alert, TouchableOpacity } from 'react-native';
+import { withNavigation } from '@react-navigation/compat';
 
-// Importa los iconos
 import DocumentoIcon from '../../../assets/documento.png';
 import DocumentoIcon2 from '../../../assets/documentont.png';
 import TelefonoIcon from '../../../assets/telefono.png';
 import FechaIcon from '../../../assets/fecha.png';
 import CorreoIcon from '../../../assets/correo.png';
 
-const PerfilScreen = ({ navigation }) => { // Pasa navigation como una propiedad
+const PerfilScreen = ({ navigation }) => {
   const [imagenPerfil, setImagenPerfil] = useState(require('../../../assets/usuario.png'));
   const [tipoId, setTipoId] = useState('');
   const [numId, setNumId] = useState('');
   const [telefono, setTelefono] = useState('');
   const [fechaNac, setFechaNac] = useState('');
   const [nombreUsuario, setNombreUsuario] = useState('');
+  const [apeCliente, setapeCliente] = useState('');
   const [correo, setCorreo] = useState('');
 
   useEffect(() => {
@@ -26,20 +26,45 @@ const PerfilScreen = ({ navigation }) => { // Pasa navigation como una propiedad
   const obtenerInformacionUsuario = async () => {
     try {
       const userInfoString = await AsyncStorage.getItem('userInfo');
+
       if (userInfoString !== null) {
         const userInfo = JSON.parse(userInfoString);
-        // Si hay datos almacenados, los establecemos en los estados
-        setTipoId(userInfo.tipoId);
-        setNumId(userInfo.numId);
-        setTelefono(userInfo.telefono);
-        setFechaNac(userInfo.fechaNac);
-        setNombreUsuario(userInfo.nombreUsuario);
-        setCorreo(userInfo.correo);
+        const numIdStored = userInfo.numId;
+        console.log('numId almacenado en AsyncStorage:', numIdStored);
+
+        const response = await fetch(`http://169.254.232.146:3000/api/perfil/show/${numIdStored}`);
+        if (response.ok) {
+          const userDataArray = await response.json();
+          const userData = userDataArray[0];
+          console.log('Datos del usuario obtenidos de la API:', userData);
+
+          setTipoId(userData.tipoId);
+          setNumId(userData.numId);
+          setTelefono(userData.telefono);
+
+
+          if (userData.fechaNac) {
+            const fechaFormateada = new Date(userData.fechaNac).toISOString().split('T')[0];
+            setFechaNac(fechaFormateada);
+          } else {
+            console.error('La propiedad fecha no está definida en el objeto userData');
+          }
+
+          setNombreUsuario(userData.nomCliente);
+          setapeCliente(userData.apeCliente);
+          setCorreo(userData.correo);
+          console.log('fecha espesifica', userData.fechaNac);
+          console.log('nombre:', userData.correo);
+
+        } else {
+          console.error('Error al obtener los datos del usuario desde la API:', response.status);
+        }
       }
     } catch (error) {
       console.error('Error al obtener información del usuario:', error);
     }
   };
+
   const onPressEditarPerfil = () => {
     navigation.navigate("ActualizarScreen");
   };
@@ -56,7 +81,8 @@ const PerfilScreen = ({ navigation }) => { // Pasa navigation como una propiedad
         </View>
         <View style={styles.header}>
           <Image style={styles.imagenPerfil} source={imagenPerfil} />
-          <Text style={styles.nombreUsuario}>{nombreUsuario}</Text>
+          <Text style={styles.nombreUsuario}>{nombreUsuario} {apeCliente} </Text>
+
         </View>
         <View style={styles.contenedorPerfil}>
           <View style={styles.tabla}>
@@ -96,7 +122,9 @@ const PerfilScreen = ({ navigation }) => { // Pasa navigation como una propiedad
               </View>
             </View>
           </View>
+
         </View>
+        {/* Botones */}
         <TouchableOpacity style={[styles.boton, styles.botonEditarPerfil]} onPress={onPressEditarPerfil}>
           <Text style={styles.textoBoton}>Editar Datos</Text>
         </TouchableOpacity>
@@ -146,12 +174,19 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     marginTop: 120,
   },
+  apeCliente: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 4,
+    color: '#fff',
+    paddingHorizontal: 10,
+    borderRadius: 10,
+  },
   nombreUsuario: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginTop: 10,
-    color: '#fff', // Color negro
-    // Fondo blanco
+    marginTop: 4,
+    color: '#fff',
     paddingHorizontal: 10,
     borderRadius: 10,
   },
@@ -164,7 +199,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 1,
     marginTop: 290,
-
   },
   tabla: {
     width: '100%',
@@ -176,29 +210,29 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   filaTipoId: {
-    backgroundColor: '#E0E0E0', // Gris más claro
+    backgroundColor: '#E0E0E0',
   },
   celdaTitulo: {
-    color: '#000', // Color negro
+    color: '#000',
     fontSize: 16,
     fontWeight: 'bold',
     marginRight: 5,
   },
   celdaTituloTipoId: {
-    color: '#000', // Color negro
+    color: '#000',
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#757575', // Color más oscuro
+    color: '#757575',
     marginRight: 5,
   },
   celda: {
-    color: '#000', // Color negro
+    color: '#000',
     fontSize: 16,
   },
   celdaTipoId: {
-    color: '#000', // Color negro
+    color: '#000',
     fontSize: 16,
-    color: '#757575', // Color más oscuro
+    color: '#757575',
   },
   boton: {
     position: 'absolute',
@@ -218,7 +252,7 @@ const styles = StyleSheet.create({
     right: 10,
   },
   textoBoton: {
-    color: '#fff', // Blanco
+    color: '#fff',
     fontSize: 16,
     textAlign: 'center',
   },
@@ -234,6 +268,14 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "center",
     color: "white",
+  },
+  datosContainer: {
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  datosText: {
+    fontSize: 16,
+    marginBottom: 5,
   },
 });
 

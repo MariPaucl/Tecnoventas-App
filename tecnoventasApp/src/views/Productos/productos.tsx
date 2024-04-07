@@ -28,7 +28,7 @@ export const ProductosScreen = () => {
 
     const fetchProductos = async (codigoCat: string) => {
         try {
-            const response = await fetch('http:/192.168.101.78:3000/api/productos/visualizar', {
+            const response = await fetch('http://169.254.232.146:3000/api/productos/visualizar', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -54,31 +54,31 @@ export const ProductosScreen = () => {
             <View style={styles.header}>
                 <Text style={styles.title}>PRODUCTOS</Text>
                 <View style={styles.pickerContainer}>
-                <Picker
-                    selectedValue={selectedCategory}
-                    onValueChange={(itemValue) => setSelectedCategory(itemValue)}
-                    style={styles.picker}
-                    dropdownIconColor={'#790bcd'}
-                >
-                    {categorias.map((categoria, index) => (
-                        <Picker.Item key={index} label={categoria.label} value={categoria.value} />
-                    ))}
-                </Picker>
+                    <Picker
+                        selectedValue={selectedCategory}
+                        onValueChange={(itemValue) => setSelectedCategory(itemValue)}
+                        style={styles.picker}
+                        dropdownIconColor={'#790bcd'}
+                    >
+                        {categorias.map((categoria, index) => (
+                            <Picker.Item key={index} label={categoria.label} value={categoria.value} />
+                        ))}
+                    </Picker>
                 </View>
                 <View style={styles.boton1}>
-                    <Text style={{color: 'white', fontWeight: 'bold', fontSize: 13}}>SELECCIONA LA CATEGORIA ⬆</Text>
+                    <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 13 }}>SELECCIONA LA CATEGORIA ⬆</Text>
                 </View>
                 <ScrollView style={styles.productosContainer}>
                     {productos.map((producto, index) => (
                         <TouchableOpacity key={index} style={styles.card}>
-                            <Image 
+                            <Image
                                 source={require(`../../../assets/Productos/producto.png`)}
-                                style={styles.productImage} 
+                                style={styles.productImage}
                             />
                             <View style={styles.cardContent}>
-                            <Text numberOfLines={2} style={styles.productName}>{producto.nomProd}</Text>
-                            <Text style={styles.productPrice}>{producto.precio}</Text>
-                            <Text style={styles.productStatus}>{producto.estProd}</Text>
+                                <Text numberOfLines={2} style={styles.productName}>{producto.nomProd}</Text>
+                                <Text style={styles.productPrice}>{producto.precio}</Text>
+                                <Text style={styles.productStatus}>{producto.estProd}</Text>
                             </View>
                         </TouchableOpacity>
                     ))}

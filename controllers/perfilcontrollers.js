@@ -2,16 +2,10 @@ const perfil = require('../models/perfil');
 
 module.exports = {
     visualizar(req, res) {
-        const { numId, tipoId, nomCliente, fechaNac, telefono, correo } = req.body;
+        const numId = req.params.numId; // Acceder al parámetro numId de req.params
         const perfilData = {
-            numId: numId,
-            tipoId: tipoId,
-            nomCliente: nomCliente,
-            fechaNac: fechaNac,
-            telefono: telefono,
-            correo: correo
+            numId: numId // Utilizar el parámetro numId
         };
-
         perfil.show(perfilData, (err, data) => {
             if (err) {
                 return res.status(501).json({
@@ -23,4 +17,4 @@ module.exports = {
             return res.status(200).json(data);
         });
     }
-};
+}

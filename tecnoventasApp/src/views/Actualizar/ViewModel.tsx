@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
-const e='22'//Id al cual se la cambian los valores
+const e = '22'//Id al cual se la cambian los valores
 
 export const useViewModel = () => {
     const [values, setValues] = useState({
@@ -18,7 +18,7 @@ export const useViewModel = () => {
 
     const update = async () => {
         try {
-            const response = await fetch('http:/192.168.101.78:3000/api/clientes/update', {
+            const response = await fetch('http://169.254.232.146:3000/api/clientes/update', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

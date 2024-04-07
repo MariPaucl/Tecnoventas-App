@@ -1,4 +1,4 @@
 const perfilController = require('../controllers/perfilcontrollers');
 module.exports = (app) => {
-    app.post('/api/perfil/show', perfilController.visualizar);
+    app.get('/api/perfil/show/:numId', perfilController.visualizar);
 };

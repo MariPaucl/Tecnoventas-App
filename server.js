@@ -6,6 +6,7 @@ const logger = require('morgan');
 const cors = require('cors');
 const clienteRoutes = require('./routes/clienteRoutes');
 const productoRoutes = require('./routes/productosRoutes');
+const perfilRoutes = require('./routes/perfilRoutes');
 
 const port = process.env.PORT || 3000;
 app.use(logger('dev'));
@@ -18,9 +19,10 @@ app.set('port', port);
 
 clienteRoutes(app);
 productoRoutes(app);
+perfilRoutes(app);
 
 //ipconfig para saber ip
-server.listen(port, '192.168.101.78' || 'localhost', function() {
+server.listen(port, '169.254.232.146' || 'localhost', function () {
     console.log('Aplicacion Tecnoventas ' + process.pid + ' inicio en el puerto ' + port);
 });
 
