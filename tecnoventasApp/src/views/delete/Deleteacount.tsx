@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   Image,
+  Alert,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../App";
@@ -16,34 +17,35 @@ import { useViewModel } from "./ViewModel";
 
 const DeleteScreen = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-  const [email, setEmail] = useState("");
-  const { deleteAccount } = useViewModel();
+  const { values, onChange, deleteAccount, error } = useViewModel(); // Usa destructuring para obtener valores y métodos de useViewModel
 
   const handleConfirm = async () => {
     try {
-      await deleteAccount();
-      alert(`Cuenta eliminada para el correo: ${email}`);
-      navigation.navigate(Home); 
+      const result = await deleteAccount(); // Llama al método deleteAccount de useViewModel
+      if (result === 'deleted') {
+        Alert.alert("Éxito", "Tu cuenta ha sido eliminada exitosamente.");
+        navigation.navigate("HomeScreen");
+      } else if (result === 'error') {
+        Alert.alert("Error", "No se pudo eliminar la cuenta. Por favor, inténtalo de nuevo.");
+      }
     } catch (error) {
-      alert('Error al eliminar la cuenta del cliente');
+      Alert.alert("Error", error.message);
     }
   };
-  
 
   return (
     <ImageBackground
       source={require("../../../assets/fondok.jpg")}
       style={styles.background}
     >
-    
       <View style={styles.container}>
         <View style={styles.container}>
           <Text style={styles.header}>¿Estás seguro de eliminar tu cuenta?</Text>
           <TextInput
             style={styles.input}
             placeholder="Escribe tu correo"
-            value={email}
-            onChangeText={(text) => setEmail(text)}
+            value={values.correo}
+            onChangeText={(text) => onChange('correo', text)}
           />
           <Text style={styles.secondaryText}>Si es así, por favor escribe tu correo para confirmar.</Text>
         </View>

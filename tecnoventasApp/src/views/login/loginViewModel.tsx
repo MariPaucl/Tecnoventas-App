@@ -17,7 +17,7 @@ export const useViewModel = () => {
 
     const login = async () => {
         try {
-            const response = await fetch('http://:3000/api/clientes/login', {
+            const response = await fetch('http:/192.168.101.78:3000/api/clientes/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

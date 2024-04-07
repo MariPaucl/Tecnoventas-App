@@ -12,12 +12,17 @@ export const useViewModel = () => {
         passCliente: '',
     });
 
-    const onChange = (property: string, value: any) => {
+    const [error, setError] = useState('');
+
+    const onChange = (property, value) => {
+        // Podrías agregar validación aquí antes de actualizar el estado
         setValues({ ...values, [property]: value });
     };
 
     const deleteAccount = async () => {
         try {
+            // Podrías validar los datos antes de enviar la solicitud DELETE
+
             const response = await fetch('http://192.168.101.78:3000/api/clientes/delete', {
                 method: 'DELETE',
                 headers: {
@@ -25,11 +30,17 @@ export const useViewModel = () => {
                 },
                 body: JSON.stringify({ correo: values.correo }),
             });
+
+            const data = await response.json();
             if (!response.ok) {
-                throw new Error('Error al eliminar la cuenta del cliente');
+                throw new Error(data.message || 'Error al eliminar la cuenta del cliente');
             }
+
+            return 'deleted'; // Devuelve 'deleted' si la eliminación fue exitosa
         } catch (error) {
-            throw error;
+            // Podrías distinguir entre diferentes tipos de errores y manejarlos de manera diferente
+            setError(error.message);
+            return 'error'; // Devuelve 'error' si ocurrió un error al eliminar la cuenta
         }
     };
 
@@ -37,6 +48,7 @@ export const useViewModel = () => {
         values,
         onChange,
         deleteAccount,
+        error,
     };
 };
 

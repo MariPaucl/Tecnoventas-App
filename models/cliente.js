@@ -86,7 +86,7 @@ Cliente.update = async (cliente, result) => {
 };
 
 Cliente.deleteAccount = (correo, callback) => {
-    const sql = 'DELETE FROM clientes WHERE correo = ?';
+    const sql = 'DELETE FROM `clientes` WHERE `correo` = ? ';
     mysql.query(sql, [correo], (err, result) => {
         if (err) {
             console.error('Error al eliminar la cuenta del cliente:', err);
