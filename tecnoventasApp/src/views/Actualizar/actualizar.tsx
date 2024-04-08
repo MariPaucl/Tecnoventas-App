@@ -1,28 +1,27 @@
-import React, {useState} from 'react'
+import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Text, View, Image, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { Text, View, Image, ScrollView, Alert } from 'react-native';
 import { RoundedButton } from '../../components/RoundedButton';
-import { StackNavigationProp} from '@react-navigation/stack';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../../App';
 import useViewModel from './ViewModel';
 import { CustomTextInput } from '../../components/CustomTextInputs';
 import styles from './Styles';
 
 export const ActualizarScreen = () => {
-    const {nomCliente, apeCliente, fechaNac, telefono, correo, numId, onChange, update } = useViewModel();
+    const {nomCliente, apeCliente, fechaNac, telefono, correo, onChange, update } = useViewModel();
+    const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
     const handleUpdate = async () => {
         try {
             await update();
             Alert.alert('Actualizacion Exitosa', 'Has actualizado datos correctamente');
-            navigation.navigate('PerfilScreen'); 
+            navigation.navigate('ProductosScreen'); 
         } catch (error) {
             Alert.alert('Error', 'Hubo un error al Actualizar. Por favor, inténtalo de nuevo.');
             console.error('Error en la actualizacion:', error);
         }
     };
-    const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList>>();
 
     return (
         <View style={styles.container}>
@@ -83,14 +82,6 @@ export const ActualizarScreen = () => {
                 onChangeText={onChange}
                 value={fechaNac}
             />
-            <CustomTextInput
-                image={require('../../../assets/date.png')}
-                placeholder='numId'
-                keyboardType='default'
-                property='numId'
-                onChangeText={onChange}
-                value={numId}
-            />
             <View style={{marginTop: 30}}>
                 <RoundedButton text='Guardar' onPress={handleUpdate}/>
             </View>
@@ -98,4 +89,4 @@ export const ActualizarScreen = () => {
             </View>
         </View>
         );
-}
+    };

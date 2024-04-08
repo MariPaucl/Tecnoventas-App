@@ -66,8 +66,14 @@ const PerfilScreen = ({ navigation }) => {
   };
 
   const onPressEditarPerfil = () => {
-    navigation.navigate("ActualizarScreen");
-  };
+    navigation.navigate("ActualizarScreen", {
+       nombreUsuario,
+        apeCliente,
+        fechaNac,
+        telefono,
+        correo,
+        numId
+    });
 
   const onPressEliminarCuenta = () => {
     navigation.navigate("DeleteScreen");
