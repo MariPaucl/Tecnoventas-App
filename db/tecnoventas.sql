@@ -209,8 +209,7 @@ INSERT INTO `detallepedidos` (`idDetalle`, `codPedido`, `codProd`, `cantidadProd
 (15, 15, 15, 1),
 (16, 16, 18, 2),
 (17, 16, 3, 1),
-(20, 19, 1, 1),
-(21, 20, 66, 5);
+(20, 19, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1273,33 +1272,7 @@ INSERT INTO `infoproductos` (`idInfo`, `codProd`, `idCaract`, `valor`) VALUES
 (1266, 65, 22, '20 Horas Aprx'),
 (1267, 65, 42, 'Inalambrica'),
 (1268, 65, 14, 'Negro'),
-(1269, 65, 15, 'NA'),
-(1270, 66, 16, '5G'),
-(1271, 66, 13, 'Si'),
-(1272, 66, 29, 'Tipo C'),
-(1273, 66, 3, '13Mpx'),
-(1274, 66, 17, '2'),
-(1275, 66, 4, '50Mpx'),
-(1276, 66, 18, '2Mpx, 8Mpx'),
-(1277, 66, 20, 'No'),
-(1278, 66, 19, 'Si'),
-(1279, 66, 1, '256GB'),
-(1280, 66, 2, '8G'),
-(1281, 66, 5, 'Snapdragon'),
-(1282, 66, 6, 'Android'),
-(1283, 66, 7, 'Android 13'),
-(1284, 66, 8, '8'),
-(1285, 66, 21, '2.5Ghz'),
-(1286, 66, 9, 'Amoled'),
-(1287, 66, 10, 'Full HD'),
-(1288, 66, 11, '11'),
-(1289, 66, 12, '5000'),
-(1290, 66, 38, 'Agua'),
-(1291, 66, 41, 'aaaa'),
-(1292, 66, 47, 'Cable'),
-(1293, 66, 46, 'NA'),
-(1294, 66, 37, 'qweere'),
-(1295, 66, 14, 'Negro');
+(1269, 65, 15, 'NA');
 
 -- --------------------------------------------------------
 
@@ -1338,8 +1311,7 @@ INSERT INTO `pedidos` (`codPedido`, `idCliente`, `fechaPedido`, `horaPedido`, `d
 (14, 1, '2024-01-07', '20:23:12', 'Avenida 68 # 19C-20, Alcalá', 1689800, 'Por pagar'),
 (15, 7, '2024-01-08', '20:35:07', 'Carrera 88D # 6D-27, Castilla, Torre 16 Apto 554', 2055000, 'Por pagar'),
 (16, 7, '2024-01-09', '14:18:08', 'Carrera 88D # 6D-27, Castilla, Torre 16 Apto 554', 2608800, 'Por pagar'),
-(19, 7, '2024-02-04', '18:10:51', 'Carrera 88D # 6D-27, Castilla, Torre 16 Apto 554', 769900, 'Por enviar'),
-(20, 7, '2024-02-23', '08:27:32', 'Carrera 88D # 6C-20, Castilla', 600000, 'Pagado');
+(19, 7, '2024-02-04', '18:10:51', 'Carrera 88D # 6D-27, Castilla, Torre 16 Apto 554', 769900, 'Por enviar');
 
 -- --------------------------------------------------------
 
@@ -1417,8 +1389,7 @@ INSERT INTO `productos` (`codProd`, `idAdmin`, `nomProd`, `marca`, `precio`, `es
 (62, 1, 'Audífonos SONY Alámbricos In Ear', 'Sony', 39900, 'Disponible', 35, 'Audífonos SONY Alámbricos In Ear Manos Libres MDR-EX15AP Blanco.png', 5),
 (63, 1, 'Audífonos de Diadema SONY Inalámbricos OverEar', 'Sony', 999900, 'Disponible', 5, 'SONY Inalámbricos Bluetooth Over Ear WH-1000XM4.png', 5),
 (64, 1, 'Audífonos de Diadema SONY Inalámbricos OnEar', 'Sony', 199900, 'Disponible', 35, 'SONY Inalámbricos Bluetooth On Ear WH-CH520.png', 5),
-(65, 3, 'Audífonos de Diadema BOSE Inalámbricos OverEar 700', 'Bose', 1799900, 'Disponible', 5, 'BOSE Inalámbricos Bluetooth Over Ear 700.png', 5),
-(66, 12, 'Movil 1', 'Samsungs', 100000, 'Disponible', 995, 'movil1.png', 1);
+(65, 3, 'Audífonos de Diadema BOSE Inalámbricos OverEar 700', 'Bose', 1799900, 'Disponible', 5, 'BOSE Inalámbricos Bluetooth Over Ear 700.png', 5);
 
 -- --------------------------------------------------------
 

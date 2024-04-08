@@ -28,7 +28,7 @@ export const ProductosScreen = () => {
 
     const fetchProductos = async (codigoCat: string) => {
         try {
-            const response = await fetch('http://169.254.232.146:3000/api/productos/visualizar', {
+            const response = await fetch('http://192.168.0.16:3000/api/productos/visualizar', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

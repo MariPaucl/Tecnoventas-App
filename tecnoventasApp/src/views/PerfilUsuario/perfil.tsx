@@ -32,7 +32,7 @@ const PerfilScreen = ({ navigation }) => {
         const numIdStored = userInfo.numId;
         console.log('numId almacenado en AsyncStorage:', numIdStored);
 
-        const response = await fetch(`http://169.254.232.146:3000/api/perfil/show/${numIdStored}`);
+        const response = await fetch(`http://192.168.0.16:3000/api/perfil/show/${numIdStored}`);
         if (response.ok) {
           const userDataArray = await response.json();
           const userData = userDataArray[0];
@@ -67,14 +67,14 @@ const PerfilScreen = ({ navigation }) => {
 
   const onPressEditarPerfil = () => {
     navigation.navigate("ActualizarScreen", {
-       nombreUsuario,
+        nombreUsuario,
         apeCliente,
         fechaNac,
         telefono,
         correo,
         numId
     });
-
+  }
   const onPressEliminarCuenta = () => {
     navigation.navigate("DeleteScreen");
   };

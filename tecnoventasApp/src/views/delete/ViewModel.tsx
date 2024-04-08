@@ -23,7 +23,7 @@ export const useViewModel = () => {
         try {
             // Podrías validar los datos antes de enviar la solicitud DELETE
 
-            const response = await fetch('http://169.254.232.146:3000/api/clientes/delete', {
+            const response = await fetch('http://192.168.0.16:3000/api/clientes/delete', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
