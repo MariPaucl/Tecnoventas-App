@@ -16,7 +16,7 @@ const PerfilScreen = ({ navigation }) => {
   const [telefono, setTelefono] = useState('');
   const [fechaNac, setFechaNac] = useState('');
   const [nombreUsuario, setNombreUsuario] = useState('');
-  const [apeCliente, setapeCliente] = useState('');
+  const [apeCliente, setApeCliente] = useState('');
   const [correo, setCorreo] = useState('');
 
   useEffect(() => {
@@ -30,18 +30,15 @@ const PerfilScreen = ({ navigation }) => {
       if (userInfoString !== null) {
         const userInfo = JSON.parse(userInfoString);
         const numIdStored = userInfo.numId;
-        console.log('numId almacenado en AsyncStorage:', numIdStored);
 
-        const response = await fetch(`http://192.168.0.16:3000/api/perfil/show/${numIdStored}`);
+        const response = await fetch(`http://192.168.100.115:3000/api/perfil/show/${numIdStored}`);
         if (response.ok) {
           const userDataArray = await response.json();
           const userData = userDataArray[0];
-          console.log('Datos del usuario obtenidos de la API:', userData);
 
           setTipoId(userData.tipoId);
           setNumId(userData.numId);
           setTelefono(userData.telefono);
-
 
           if (userData.fechaNac) {
             const fechaFormateada = new Date(userData.fechaNac).toISOString().split('T')[0];
@@ -51,11 +48,8 @@ const PerfilScreen = ({ navigation }) => {
           }
 
           setNombreUsuario(userData.nomCliente);
-          setapeCliente(userData.apeCliente);
+          setApeCliente(userData.apeCliente);
           setCorreo(userData.correo);
-          console.log('fecha espesifica', userData.fechaNac);
-          console.log('nombre:', userData.correo);
-
         } else {
           console.error('Error al obtener los datos del usuario desde la API:', response.status);
         }
@@ -74,9 +68,30 @@ const PerfilScreen = ({ navigation }) => {
         correo,
         numId
     });
-  }
+  };
   const onPressEliminarCuenta = () => {
     navigation.navigate("DeleteScreen");
+  };
+  const onPressCerrarSesion = () => {
+    Alert.alert(
+      'Cerrar Sesión',
+      '¿Estás seguro de que deseas cerrar sesión?',
+      [
+        {
+          text: 'Cancelar',
+          onPress: () => console.log('Cancelado'),
+          style: 'cancel',
+        },
+        {
+          text: 'Aceptar',
+          onPress: async () => {
+          
+            navigation.navigate('HomeScreen');
+          },
+        },
+      ],
+      { cancelable: false }
+    );
   };
 
   return (
@@ -88,7 +103,6 @@ const PerfilScreen = ({ navigation }) => {
         <View style={styles.header}>
           <Image style={styles.imagenPerfil} source={imagenPerfil} />
           <Text style={styles.nombreUsuario}>{nombreUsuario} {apeCliente} </Text>
-
         </View>
         <View style={styles.contenedorPerfil}>
           <View style={styles.tabla}>
@@ -128,14 +142,16 @@ const PerfilScreen = ({ navigation }) => {
               </View>
             </View>
           </View>
-
         </View>
         {/* Botones */}
         <TouchableOpacity style={[styles.boton, styles.botonEditarPerfil]} onPress={onPressEditarPerfil}>
           <Text style={styles.textoBoton}>Editar Datos</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.boton, styles.botonEliminarCuenta]} onPress={onPressEliminarCuenta}>
-          <Text style={styles.text}>Eliminar cuenta</Text>
+          <Text style={styles.text}>Eliminar Cuenta</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.boton, styles.botonCerrarSesion]} onPress={onPressCerrarSesion}>
+          <Text style={styles.text}>Cerrar Sesión</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
@@ -251,11 +267,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#7a2fbc',
     bottom: 10,
     left: 10,
+    width: 130,
+    height: 40
   },
   botonEliminarCuenta: {
     backgroundColor: '#7a2fbc',
     bottom: 10,
     right: 10,
+    width: 130,
+    height: 40
+  },
+  botonCerrarSesion: {
+    backgroundColor: '#7a2fbc',
+    bottom: 10,  
   },
   textoBoton: {
     color: '#fff',
