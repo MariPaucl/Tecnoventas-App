@@ -45,7 +45,7 @@ export const ProductosScreen = () => {
     };
 
     const handleIngresaAquiClick = () => {
-        Linking.openURL('http://localhost/Tecnoventas-proyect/');
+        Linking.openURL('http://tecnoventas-co.wuaze.com/?i=1');
     };
 
     return (

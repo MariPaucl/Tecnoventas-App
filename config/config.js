@@ -1,13 +1,13 @@
 const mysql = require('mysql');
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
+    host: 'tecnoventas-proyect.mysql.database.azure.com',
+    user: 'tecnoventas',
+    password: 'Formacionsena*',
     database: 'tecnoventas'
 });
 
-db.connect(function(err) {
-    if(err) throw err;
+db.connect(function (err) {
+    if (err) throw err;
     console.log('Base de datos conectada');
 });
 
