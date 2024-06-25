@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 const db = mysql.createConnection({
-    host: 'tecnoventas-proyect.mysql.database.azure.com',
+    host: 'tecnoventas.mysql.database.azure.com',
     user: 'tecnoventas',
     password: 'Formacionsena*',
     database: 'tecnoventas'

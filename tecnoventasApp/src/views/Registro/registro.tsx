@@ -16,13 +16,23 @@ export const RegistroScreen = () => {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
-    const handleDateChange = (event: any, date: Date | undefined) => {
+    // Función para formatear la fecha a YYYY-MM-DD
+    const formatDate = (date: Date): string => {
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+    const handleDateChange = (event: any, date?: Date | undefined) => {
         setShowDatePicker(false);
         if (date) {
             setSelectedDate(date);
-            onChange('fechaNac', date);
+            const formattedDate = formatDate(date);
+            onChange('fechaNac', formattedDate);
         }
     };
+
 
     const handleRegister = async () => {
         if (!tipoId || !numId || !nomCliente || !apeCliente || !fechaNac || !telefono || !correo || !passCliente) {

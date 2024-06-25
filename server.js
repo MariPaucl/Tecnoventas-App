@@ -22,7 +22,7 @@ productoRoutes(app);
 perfilRoutes(app);
 
 //ipconfig para saber ip
-server.listen(port, () => {
+server.listen(port, '169.254.232.146' || 'localhost', function () {
     console.log('Aplicacion Tecnoventas ' + process.pid + ' inicio en el puerto ' + port);
 });
 

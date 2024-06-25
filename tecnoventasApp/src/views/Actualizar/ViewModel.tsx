@@ -50,7 +50,7 @@ export const useViewModel = () => {
 
     const update = async () => {
         try {
-            const response = await fetch('http://192.168.100.115:3000/api/clientes/update', {
+            const response = await fetch('http:// 169.254.232.146:3000/api/clientes/update', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

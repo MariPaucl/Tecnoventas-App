@@ -31,7 +31,7 @@ const PerfilScreen = ({ navigation }) => {
         const userInfo = JSON.parse(userInfoString);
         const numIdStored = userInfo.numId;
 
-        const response = await fetch(`http://192.168.100.115:3000/api/perfil/show/${numIdStored}`);
+        const response = await fetch(`http://169.254.232.146:3000/api/perfil/show/${numIdStored}`);
         if (response.ok) {
           const userDataArray = await response.json();
           const userData = userDataArray[0];
